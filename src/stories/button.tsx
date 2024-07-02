@@ -1,6 +1,7 @@
 import { type ButtonHTMLAttributes, type PropsWithChildren } from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cv, cn } from "~/lib/utils";
+import { cva } from "class-variance-authority";
+import { cn } from "~/lib/utils";
 
 /**
  * Button Variants.
@@ -22,7 +23,13 @@ export type ButtonVariants = {
   size: "default" | "sm" | "lg" | "icon";
 };
 
-export const buttonVariants = cv<ButtonVariants>(
+type VariantTypeTo = {
+  [key in keyof ButtonVariants]: {
+    [keyy in ButtonVariants[key]]: string;
+  };
+};
+
+export const buttonVariants = cva<VariantTypeTo>(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {

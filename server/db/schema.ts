@@ -35,6 +35,14 @@ export const posts = createTable(
   })
 );
 
+export const test = createTable("test", {
+  id: text("id", { length: 255 })
+    .notNull()
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("test", { length: 255 }),
+});
+
 export const users = createTable("user", {
   id: text("id", { length: 255 })
     .notNull()
@@ -46,6 +54,7 @@ export const users = createTable("user", {
     mode: "timestamp",
   }).default(sql`CURRENT_TIMESTAMP`),
   image: text("image", { length: 255 }),
+  testField: text("testField", { length: 255 }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
